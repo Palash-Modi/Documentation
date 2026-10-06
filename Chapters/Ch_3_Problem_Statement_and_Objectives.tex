@@ -1,0 +1,40 @@
+%! TEX root = ../main.tex
+\chapter{Problem Statement and Objectives}
+\label{ch:problem_statement}
+\label{chap:Problem Statement and Objectives}
+
+\section{Research Questions}
+The following primary research questions guide this project:
+\begin{enumerate}
+    \item How can an Autonomous Mobile Robot (AMR) achieve reliable localization and obstacle-free navigation in a dynamic indoor environment without depending on a full ROS-based ecosystem?
+    \item What is an effective way to collect, transmit, and visualize an AMR's operational parameters (battery status, speed, position, and map data) in real time so that non-technical supervisors can monitor the robot remotely?
+    \item Can a Natural Language Processing (NLP) and Large Language Model (LLM) pipeline reliably convert unstructured, plain-English commands into accurate $(x, y)$ navigation targets for the robot?
+    \item How can a SLAM-based navigation, telemetry monitoring, and NLP-driven command translation be integrated into a single, cost-effective control architecture built around a Raspberry Pi 5?
+\end{enumerate}
+
+\section{Problem Statement}
+Modern Autonomous Mobile Robots (AMRs) often lack unified telemetry monitoring and rely on complex, unintuitive user control interfaces. This project addresses these challenges by combining SLAM for autonomous navigation, a Power BI dashboard for real-time telemetry tracking, and an NLP-LLM pipeline for natural text-command control.
+
+\section{Objectives}
+\begin{enumerate}
+    \item To develop a SLAM enabled AMR.
+    \item To design and develop an Operational Dashboard for monitoring AMR performance parameters such as battery status, speed, etc.
+    \item To integrate NLP and LLM for enabling target navigation using natural language text commands.
+\end{enumerate}
+
+\section{Scope and Limitations}
+
+\subsection{Scope}
+\begin{itemize}
+    \item Development and deployment of a prototype Autonomous Mobile Robot (AMR) with a Raspberry Pi 5 as the primary platform for onboard computing.
+    \item Implementation of 2D LiDAR-driven SLAM techniques for indoor mapping, localization, and route planning.
+    \item Real-time transfer via MQTT/HTTP of all critical telemetry data such as battery level, velocity, and position to a Power BI dashboard.
+    \item Integration of natural language processing coupled to Large Language Models (LLMs) to convert spoken or written commands into navigation goals.
+\end{itemize}
+
+\subsection{Limitations}
+\begin{itemize}
+    \item The prototype is currently limited to navigating on one floor, in a single room, and cannot navigate outdoors or on multiple levels.
+    \item The accuracy of mapping and navigation is limited by the performance of the chosen 2D LiDAR sensor; SLAM based on 3D or vision is not supported.
+    \item The interface of NLP/LLM is based on a pre-defined vocabulary that is associated with known map entities, which reduces its ability to interpret vague or arbitrary instructions.
+\end{itemize}

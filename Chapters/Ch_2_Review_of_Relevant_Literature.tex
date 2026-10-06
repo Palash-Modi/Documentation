@@ -1,0 +1,90 @@
+%! TEX root = ../main.tex
+\chapter{Review of Relevant Literature}
+\label{ch:literature_review}
+
+The deployment of Autonomous Mobile Robots (AMRs) in industrial, warehousing, and service contexts integrates probabilistic state estimation, real-time path planning, distributed Internet of Things (IoT) telemetry, and Human-Robot Interaction (HRI). This chapter synthesizes existing research across these four foundational domains, analyzes state-of-the-art implementations, and identifies the technical gaps addressed by this work.
+
+\section{Simultaneous Localization and Mapping (SLAM)}
+Simultaneous Localization and Mapping constitutes the core capability required for autonomous platform navigation in uncharted or dynamic spaces. The theoretical foundations of probabilistic SLAM were formalized by \citet{thrun2005probabilistic}, establishing that robot pose and environmental map features must be modeled as joint probability distributions over time. 
+
+Early solutions relied heavily on Extended Kalman Filters (EKF) and particle filters, as surveyed by \citet{bailey2006slam1,bailey2006slam2}. While EKF-SLAM linearizes non-linear kinematic motion models, its computational complexity scales quadratically as $\mathcal{O}(N^2)$ with the landmark count $N$, rendering it inefficient for large-scale indoor environments. Particle-filter approaches such as Rao-Blackwellized particle filtering decoupled map generation from pose tracking, yet remained vulnerable to particle depletion in sprawling geometric loops.
+
+Recent industrial implementations have largely pivoted to 2D LiDAR graph-based SLAM architectures. \citet{macenski2021slam} developed \textit{SLAM Toolbox}, a graph-optimization framework built specifically for ROS~2. SLAM Toolbox employs scan matching via the Ceres non-linear optimization solver and maintains an active pose graph that supports dynamic relocalization, multi-session map merging, and lifelong mapping. Operating on planar 2D LiDAR range data, it generates high-fidelity 2D occupancy grid maps with substantially reduced compute overhead compared to 3D point-cloud SLAM, making it well suited for edge single-board computers (SBCs).
+
+\section{Autonomous Navigation and Kinematic Motion Control}
+Once an environment is mapped, autonomous navigation requires resolving the mathematical relationship between actuator velocities and vehicle trajectories.
+
+\subsection{Differential Drive Kinematics}
+The differential drive platform is widely favored for indoor mobile robots due to its mechanical simplicity and zero-radius turning capability~\citep{siegwart2011introduction}. The forward kinematic model defines linear velocity $v(t)$ and angular velocity $\omega(t)$ in the robot frame as a function of wheel angular velocities ($\dot{\phi}_L$, $\dot{\phi}_R$), wheel radius $r$, and track gauge $b$:
+\begin{equation}
+    v(t) = \frac{r}{2} \left( \dot{\phi}_R(t) + \dot{\phi}_L(t) \right)
+\end{equation}
+\begin{equation}
+    \omega(t) = \frac{r}{b} \left( \dot{\phi}_R(t) - \dot{\phi}_L(t) \right)
+\end{equation}
+
+Integrating these velocities across time yields Dead Reckoning odometry. However, real-world implementations suffer from cumulative drift caused by wheel slippage, tire deformation, and uneven floor surfaces~\citep{siegwart2011introduction}. Modern mobile architectures fuse encoder odometry with onboard Inertial Measurement Unit (IMU) data through an extended Kalman filter before passing states to navigation stacks.
+
+\subsection{Path Planning and Costmap Frameworks}
+The standard for ROS~2 navigation is the Nav2 framework~\citep{openrobotics2024nav2}. Nav2 structures navigation as an action server coordinating global path planners, local trajectory controllers, recovery behaviors, and tiered costmaps:
+\begin{itemize}
+    \item \textbf{Global Planners (e.g., NavFn, Smac Planner):} Compute a static geometric path from current coordinates to the target pose using algorithms such as $A^*$ or Dijkstra over an inflated static costmap.
+    \item \textbf{Local Controllers (e.g., DWB, TEB Local Planner):} Evaluate real-time LiDAR obstacles and generate valid twist commands (\texttt{geometry\_msgs/}\allowbreak\texttt{msg/}\allowbreak\texttt{Twist}) that satisfy vehicle kinematic and acceleration constraints while following the global trajectory.
+    \item \textbf{Costmap 2D Representations:} Maintain dual-layer representations comprising a global costmap (retained from the SLAM map) and a rolling local costmap populated with real-time obstacle buffers.
+\end{itemize}
+
+\section{Robotic Telemetry and Operational Dashboards}
+Supervising autonomous mobile platforms within production environments requires reliable, low-latency telemetry transport from the robot edge to supervisors without saturating onboard network bandwidth.
+
+\subsection{Telemetry Transport Protocols}
+The Message Queuing Telemetry Transport (MQTT) protocol, formalized under the OASIS standard~\citep{oasis2019mqtt}, uses an event-driven publish/subscribe paradigm over TCP/IP. Compared to traditional HTTP polling—which incurs high header overhead and request/response latency—MQTT provides:
+\begin{itemize}
+    \item Minimal fixed packet header sizes (as low as 2 bytes), minimizing wireless traffic.
+    \item Configurable Quality of Service (QoS 0, 1, and 2) levels to guarantee delivery of critical alert packets while maintaining high throughput for periodic odometry metrics.
+    \item Centralized broker mediation, decoupling the robot publisher from client subscribers and isolating onboard compute processes from dashboard connection drops.
+\end{itemize}
+
+\subsection{Streaming Business Intelligence Dashboards}
+While low-level robotic debugging relies on visualization utilities such as RViz, plant managers require aggregated Key Performance Indicators (KPIs) accessible via web browsers. \citet{microsoft2024powerbi} established real-time streaming dataset architectures capable of ingesting high-velocity JSON telemetry payloads through REST APIs and MQTT gateways. Live dashboards allow plant managers to visualize state-of-charge curves, motor duty cycles, instantaneous velocities, and mission completion statistics without direct access to ROS~2 topic streams.
+
+\section{Natural Language Processing and Human-Robot Interaction}
+Conventional HRI frameworks require operators to navigate graphical maps or input numerical $(x, y, \theta)$ goal coordinates. Bridging natural language processing with robotic action servers makes robot task delegation accessible to non-technical users.
+
+Early robotic NLP interfaces utilized rule-based context-free grammars and slot-filling classifiers. While computationally lightweight, these pipelines failed when handling minor syntactic variations, typographical errors, or novel phrasings. The emergence of transformer architectures and Large Language Models (LLMs), as presented by \citet{brown2020language}, introduced generalized few-shot comprehension and semantic grounding. 
+
+By querying modern instruction-tuned language APIs~\citep{openai2024gpt}, unstructured user sentences (e.g., \textit{``Take this payload to the inspection bay''}) can be processed through prompt templates to extract structured JSON responses containing intent tags and target entity labels:
+\begin{verbatim}
+{"intent": "navigate", "target_location": "inspection_bay"}
+\end{verbatim}
+The extracted target label is subsequently cross-referenced with an onboard lookup table storing registered semantic coordinates, yielding an automated target pose for the navigation stack.
+
+\section{Comparative Analysis of Related Works}
+Table~\ref{tab:literature_matrix} synthesizes the key literature across the core technological domains integrated within this project.
+
+\begin{table}[htbp]
+\centering
+\caption{Comparative evaluation of literature across robotic system domains.}
+\label{tab:literature_matrix}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{>{\raggedright\arraybackslash}p{2.8cm} >{\raggedright\arraybackslash}p{2.5cm} >{\raggedright\arraybackslash}p{3.0cm} >{\raggedright\arraybackslash}p{5.5cm}}
+\hline
+\textbf{Domain} & \textbf{Key Reference} & \textbf{Approach / Tool} & \textbf{Key Capabilities \& Limitations} \\ \hline
+Probabilistic SLAM & \citet{thrun2005probabilistic} & EKF \& Particle Filters & Foundational theory; high computational growth in expansive environments. \\ \hline
+Graph-Based SLAM & \citet{macenski2021slam} & SLAM Toolbox (ROS 2) & Ceres-based scan optimization; lifelong mapping; optimized for 2D LiDAR on edge SBCs. \\ \hline
+Mobile Robot Kinematics & \citet{siegwart2011introduction} & Differential Drive & Closed-form odometry equations; vulnerable to unbounded cumulative wheel-slip drift. \\ \hline
+Path Planning & \citet{openrobotics2024nav2} & ROS 2 Nav2 & Dynamic costmap inflation; modular global/local planners; high resilience in dynamic spaces. \\ \hline
+IoT Data Streaming & \citet{oasis2019mqtt} & MQTT v5.0 Broker & Pub/Sub architecture; minimal packet footprint; resilient over unstable wireless links. \\ \hline
+Operational Analytics & \citet{microsoft2024powerbi} & Streaming REST / Power BI & Real-time KPI visualization; executive accessibility; eliminates need for local RViz tools. \\ \hline
+LLM Semantic Parsing & \citet{brown2020language, openai2024gpt} & Transformer Few-Shot Inference & Contextual entity extraction; natural phrasing tolerance; requires network link for cloud APIs. \\ \hline
+\end{tabular}
+\end{table}
+
+\section{Identified Research Gaps}
+From the surveyed literature, three primary technical gaps emerge:
+\begin{enumerate}
+    \item \textbf{High Cost and Computational Barriers:} Many existing autonomous navigation systems depend on expensive 3D LiDAR sensors and industrial-grade IPCs, creating a cost barrier for small-scale educational and light-industrial environments.
+    \item \textbf{Isolated Robotic Telemetry:} Robot runtime metrics typically stay confined within native ROS~2 nodes and RViz workspaces, leaving remote managers without an accessible supervisory dashboard.
+    \item \textbf{Complex Mission Dispatch Interfaces:} Deploying navigation missions still largely relies on explicit coordinate inputs or rigid command-line scripts, limiting accessibility for non-specialist personnel.
+\end{enumerate}
+
+By combining 2D LiDAR SLAM Toolbox mapping, differential drive Nav2 planning, lightweight MQTT-to-Power BI streaming, and an LLM-assisted semantic goal-parsing engine on a single-board computer architecture, this project directly addresses these limitations.

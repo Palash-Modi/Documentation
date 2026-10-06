@@ -1,0 +1,29 @@
+%! TEX root = ../main.tex
+\chapter{Introduction}
+\label{chap:introduction}
+
+Modern industrial environments, laboratories, and warehouses increasingly deploy Autonomous Mobile Robots (AMRs) for automated material transport and site monitoring \cite{macenski2021slam}. Unlike conventional Automated Guided Vehicles (AGVs) that depend on physical tracks or magnetic tape, AMRs leverage Simultaneous Localization and Mapping (SLAM) to perceive their surroundings and navigate around dynamic obstacles \cite{thrun2005probabilistic}. However, configuring and dispatching these systems typically demands specialized engineering skills, terminal commands, or rigid proprietary software.
+
+This project addresses these challenges by integrating Natural Language Understanding (NLU) with edge-computed navigation and cloud operational telemetry. An integrated Large Language Model (LLM) processing engine parses plain text commands into spatial coordinates, while a lightweight MQTT/HTTP pipeline streams hardware diagnostics to a centralized Power BI dashboard running on a single-board computer architecture.
+
+\section{Background}
+Industrial material transport is shifting from fixed-path AGVs to agile, infrastructure-free AMRs~\citep{siegwart2011introduction}.
+Furthermore, critical runtime metrics—such as wheel velocities, motor PWM levels, battery state of charge (SoC), and sensor health—are often restricted to onboard operating system logs or desktop visualization tools like RViz \cite{openrobotics2024nav2}. Bridging natural language processing with cloud-based business intelligence dashboards provides an intuitive operational interface and centralized supervisory tracking.
+
+\section{Motivation}
+This study focuses on two operational objectives:
+\begin{itemize}
+    \item \textbf{Democratizing Robot Control:} Allowing non-technical staff to issue natural language mission directives (e.g., ``Go to Charging Station 2''), which the system translates into navigation waypoints \cite{brown2020language, openai2024gpt}.
+    \item \textbf{Operational Transparency:} Streaming battery voltage, localization coordinates, and motor health via low-overhead telemetry protocols to a cloud dashboard for real-time monitoring \cite{oasis2019mqtt, microsoft2024powerbi}.
+\end{itemize}
+
+\section{Recent Trends}
+This work builds on three converging technologies:
+\begin{itemize}
+    \item \textbf{LLM-Driven Semantic Navigation:} Moving from rigid keyword parsing to transformer models capable of contextual spatial reasoning \cite{brown2020language, openai2024gpt}.
+    \item \textbf{Cloud-Connected Telemetry Dashboards:} Transitioning local visualization to cloud-hosted business intelligence suites via lightweight protocols \cite{oasis2019mqtt, microsoft2024powerbi}.
+    \item \textbf{Edge Computing on Accessible Single-Board Hardware:} Deploying 2D SLAM, dynamic path planning, and API dispatching concurrently on embedded hardware \cite{siegwart2011introduction}.
+\end{itemize}
+
+\section{Significance of the Study}
+This project demonstrates that 2D LiDAR SLAM, dynamic obstacle avoidance, and cloud-assisted LLM command interpretation can be deployed reliably on embedded edge hardware without requiring industrial compute units \cite{thrun2005probabilistic, macenski2021slam, openrobotics2024nav2}.

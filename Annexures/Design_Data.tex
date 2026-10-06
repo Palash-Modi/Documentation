@@ -1,0 +1,115 @@
+%! TEX root = ../main.tex
+\chapter*{Annexure I: Design Data}
+\addcontentsline{toc}{chapter}{Annexure I: Design Data}
+
+% Change numbering style for sections, figures, tables, equations
+\renewcommand{\thesection}{I.\arabic{section}}
+\renewcommand{\thefigure}{I.\arabic{figure}}
+\renewcommand{\thetable}{I.\arabic{table}}
+\renewcommand{\theequation}{I.\arabic{equation}}
+
+% Reset counters so numbering starts fresh
+\setcounter{section}{0}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\setcounter{equation}{0}
+
+\section{Introduction}
+This annexure contains detailed design data used in the project, including structural material specifications, 3D printing parameters, kinematic equations, and electromechanical parameters for the Autonomous Mobile Robot (AMR).
+
+\section*{Design Specifications}
+\begin{table}[htbp]
+    \centering
+    \caption{Design Specifications for the AMR Platform}
+    \label{tab:system_design_specs}
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabular}{|p{5.5cm}|p{8.5cm}|}
+        \hline
+        \textbf{Parameter} & \textbf{Value / Specification} \\ \hline
+        Chassis Structure & Dual-tier modular chassis with vertical standoffs \\ \hline
+        Drive Configuration & 4-wheel independent Mecanum drive (holonomic, 3-DOF) \\ \hline
+        Lower Base Plate & 6\,mm ABS (15\% infill density) \\ \hline
+        Upper Sensing Deck & 4\,mm PLA (10\% infill density) \\ \hline
+        Motor Shaft Couplers & Solid ABS (100\% infill density) \\ \hline
+        Primary Compute & Raspberry Pi 5 (housed in lower bay) \\ \hline
+        Inertial Measurement Unit & MPU-6050 6-axis IMU (mounted on upper deck) \\ \hline
+        Ranging Sensor & Front ultrasonic distance sensor (mounted on upper deck) \\ \hline
+        Vision System & Dual cameras (Cam 0 Primary, Cam 1 Stereo on upper deck bridge) \\ \hline
+        Operating Potential & 7.4\,V nominal Li-ion pack (7.59\,V verified baseline) \\ \hline
+    \end{tabular}
+\end{table}
+
+\section{Design Calculations}
+Key calculations performed for chassis locomotion, motor velocity matching, and normal load distribution:
+
+\subsection*{Mecanum Drive Inverse Kinematics}
+For a four-wheel Mecanum drive with wheel radius $r$, longitudinal half-length $l_x$, and lateral half-width $l_y$, the individual wheel rotational speeds $(\omega_1, \omega_2, \omega_3, \omega_4)$ required to generate body velocities $(v_x, v_y, \omega_z)$ are given by:
+
+\begin{equation}
+    \begin{bmatrix}
+        \omega_1 \\
+        \omega_2 \\
+        \omega_3 \\
+        \omega_4
+    \end{bmatrix}
+    = \frac{1}{r}
+    \begin{bmatrix}
+        1 & -1 & -(l_x + l_y) \\
+        1 &  1 &  (l_x + l_y) \\
+        1 &  1 & -(l_x + l_y) \\
+        1 & -1 &  (l_x + l_y)
+    \end{bmatrix}
+    \begin{bmatrix}
+        v_x \\
+        v_y \\
+        \omega_z
+    \end{bmatrix}
+\end{equation}
+
+Where:
+\begin{itemize}
+    \item $\omega_1, \omega_2, \omega_3, \omega_4$ = angular velocities of front-left, front-right, rear-left, and rear-right wheels ($\text{rad/s}$)
+    \item $v_x, v_y$ = longitudinal and lateral chassis velocities ($\text{m/s}$)
+    \item $\omega_z$ = yaw rotational velocity ($\text{rad/s}$)
+    \item $r$ = outer radius of the Mecanum wheels ($\text{m}$)
+    \item $l_x, l_y$ = distance from the robot center of mass to the wheel contact centers along $X$ and $Y$ axes ($\text{m}$)
+\end{itemize}
+
+\subsection*{Chassis Linear Velocity from Motor Output}
+The maximum theoretical longitudinal speed $v_{\text{max}}$ in pure forward locomotion ($v_y = 0, \omega_z = 0$) is determined from the motor gearbox rotational speed $N$:
+
+\begin{equation}
+    v_{\text{max}} = \left( \frac{2 \pi N}{60} \right) \cdot r
+\end{equation}
+
+Where:
+\begin{itemize}
+    \item $v_{\text{max}}$ = maximum linear chassis velocity ($\text{m/s}$)
+    \item $N$ = motor output rotational speed ($\text{RPM}$)
+    \item $r$ = Mecanum wheel radius ($\text{m}$)
+\end{itemize}
+
+\subsection*{Static Normal Load Distribution}
+Assuming symmetric mass distribution across the chassis tiers, the static normal force $F_N$ borne by each wheel contact interface is:
+
+\begin{equation}
+    F_{N} = \frac{m \cdot g}{4}
+\end{equation}
+
+Where:
+\begin{itemize}
+    \item $F_N$ = static normal reaction force per wheel ($\text{N}$)
+    \item $m$ = total robot mass ($\text{kg}$)
+    \item $g$ = acceleration due to gravity ($9.81\,\text{m/s}^2$)
+\end{itemize}
+
+\section{Additional Data}
+\begin{itemize}
+    \item \textbf{Additive Manufacturing Tolerances:} $\pm 0.20\,\text{mm}$ clearance on motor shaft apertures, mounting holes, and standoff slots.
+    \item \textbf{Thermal Slicing Parameters:}
+    \begin{itemize}
+        \item Lower Base Plate \& Couplers (ABS): Nozzle $240^\circ\text{C}$, Bed $95^\circ\text{C}$, Layer height $0.20\,\text{mm}$.
+        \item Upper Sensing Deck (PLA): Nozzle $205^\circ\text{C}$, Bed $60^\circ\text{C}$, Layer height $0.20\,\text{mm}$.
+    \end{itemize}
+    \item \textbf{Assembly Fasteners:} M3 machine screws, cylindrical structural standoffs, and nylon locknuts.
+\end{itemize}

@@ -1,0 +1,41 @@
+%! TEX root = ../main.tex
+\newpage
+\thispagestyle{plain}
+\addcontentsline{toc}{chapter}{Annexure I: Design Data}
+
+\chapter*{Annexure I}
+\markboth{Annexure I: Design Data}{Annexure I: Design Data}
+
+{\centering \section*{Design Specifications}}
+
+\vspace{0.5cm}
+\noindent
+This annexure consolidates the physical dimensions, 3D printing parameters, kinematic bounds, and electronic specifications of the developed Autonomous Mobile Robot.
+
+\vspace{0.5cm}
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Design Specifications for the AMR System.}
+\label{tab:design_specifications}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{>{\bfseries\raggedright\arraybackslash}p{6.0cm} >{\raggedright\arraybackslash}X}
+\hline
+\textbf{Parameter} & \textbf{Specification / Value} \\ \hline
+Chassis Configuration & Dual-tier modular platform with structural standoffs \\ \hline
+Drive Architecture & 4-Wheel Mecanum drive (holonomic, 3-DOF) \\ \hline
+Lower Base Plate & 6\,mm ABS, 15\% infill density \\ \hline
+Upper Sensing Deck & 4\,mm PLA, 10\% infill density \\ \hline
+Motor Shaft Couplers & Solid ABS, 100\% infill density \\ \hline
+Primary Compute Platform & Raspberry Pi~5 (8\,GB RAM) \\ \hline
+Execution Environment & Python 3 (\texttt{robot\_env}) \\ \hline
+Perception Sensors & Dual Cameras (\texttt{Cam~0} Primary, \texttt{Cam~1} Stereo) \\ \hline
+Inertial Measurement Unit & MPU-6050 6-axis (I2C interface) \\ \hline
+Obstacle Ranging Sensor & Front ultrasonic rangefinder (sonar) \\ \hline
+Visual SLAM Pipeline & ORB-SLAM2 feature-based tracking \\ \hline
+Object Detection Model & YOLOv8 Nano (\texttt{yolov8n.pt}) \\ \hline
+Natural Language Dispatch & REST API endpoint (\texttt{/send-command}) with \texttt{memory.py} \\ \hline
+Nominal Battery Voltage & 7.4\,V Li-ion pack (7.59\,V nominal operating potential) \\ \hline
+\end{tabularx}
+\end{table}
