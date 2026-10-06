@@ -1,0 +1,181 @@
+\documentclass[a4paper,12pt]{report}
+
+\usepackage{efbox,graphicx}
+
+
+\usepackage[a4paper, bindingoffset =0.3in, left=1in,right=1in,top=1in,bottom=1in,footskip=0.25in]{geometry}
+
+\usepackage{caption}
+
+\usepackage{times}
+\usepackage{array}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\usepackage{siunitx,booktabs,threeparttable,caption}
+
+\sisetup{separate-uncertainty=true}
+\usepackage{nomencl}
+%\usepackage{fancyhdr}
+\usepackage[T1]{fontenc}
+\usepackage{setspace}
+\usepackage{amsmath}
+%\usepackage{algorithm}
+%\usepackage{algpseudocode}
+\usepackage{array}
+\usepackage{mdwmath}
+\usepackage{eqparbox}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{natbib}
+\usepackage{float}
+\usepackage{lmodern}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{multirow,multicol}
+\usepackage[labelfont=bf]{caption}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsbsy}
+\usepackage{url}
+\usepackage{xurl} % [FIX] Breaks long URLs across lines in references
+\usepackage{ifthen} % [FIX] Required for the \ifthenelse macro at the bottom of the file
+\usepackage{verbatim}
+\usepackage{bbm}
+\usepackage{makeidx}
+\usepackage{latexsym}
+\usepackage{euscript}
+\usepackage{lastpage}
+\usepackage{geometry}
+\usepackage[pagestyles]{titlesec}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\usepackage{tabularx}
+\usepackage{stackengine}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\pgfplotsset{width=15cm,compat=newest}
+\definecolor{findOptimalPartition}{HTML}{D7191C}
+\definecolor{storeClusterComponent}{HTML}{FDAE61}
+\definecolor{dbscan}{HTML}{ABDDA4}
+\definecolor{constructCluster}{HTML}{2B83BA}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+%\pagestyle{fancy} 
+\usepackage{pdfpages}
+\usepackage{adjustbox}
+
+%\usepackage{pdftexcmds}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{subcaption}
+\usepackage{subfigure}
+\usepackage{longtable}
+\usepackage{rotating}
+\usepackage{lscape}
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+\usepackage{lscape}
+\usepackage{longtable}
+\usepackage{algcompatible}
+\usepackage{graphicx}
+%\usepackage{caption}
+%\usepackage{subcaption}
+
+\newcommand{\hd}{\rotatebox{90}}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\SetKwInput{KwInput}{Input}                % Set the Input
+\SetKwInput{KwOutput}{Output}              % set the Output
+\SetKwInput{KwResult}{Outcome}              % set the Output
+\usepackage{color, colortbl}
+\usepackage{textcomp}
+\usetikzlibrary{fit, backgrounds, matrix, arrows.meta}
+\usepackage{framed}
+\efboxsetup{linecolor=black,linewidth=0.75pt}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\usepackage{wrapfig}
+\usepackage{siunitx}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\baselinestretch}{1.3}
+%\renewcommand\thesection{\arabic{section}}
+\captionsetup[table]{justification=raggedright,singlelinecheck=off}
+%\newpagestyle{main}{\setfoot{}{}{Page \textbf{\thepage} of \textbf{\pageref{LastPage}}}}
+%\pagestyle{main}
+
+\renewcommand\bibname{\Large References}
+% [FIX] Commented out until figures are added to avoid the "Unused \captionsetup[figure]" warning
+% \captionsetup[figure]{labelfont={bf},labelformat={default},labelsep=period,name={Fig.}}
+\captionsetup[table]{labelfont={bf},labelformat={default},labelsep=space,name={Table}}
+%\bibliographystyle{unsrt}
+%\bibliographystyle{apalike}
+\bibliographystyle{abbrvnat}
+\setcitestyle{authoryear,open={(},close={)}}
+%\bibliographystyle{abbrvnat}
+
+% [FIX] Suppress harmless badbox warnings
+\hfuzz=2pt
+\hbadness=10000
+\emergencystretch=2em
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\include{Front_Pages/title_page}
+\thispagestyle{empty}
+\newpage
+\pagenumbering{roman} % Roman numbering for front matter
+\setcounter{page}{1}
+\include{Front_Pages/Approval}
+\thispagestyle{plain}
+%\setcounter{page}{1}
+%\pagenumbering{roman}
+%\include{Front/3_Abstract}
+%\setcounter{page}{4}
+%\include{Front/4_Acknowledgment}
+%\setcounter{page}{5}
+%\addtocontents{toc}{\protect\thispagestyle{plain}}
+%\addtocontents{toc}{\protect\thispagestyle{plain}}
+\tableofcontents
+\thispagestyle{plain}
+%\setcounter{page}{2}
+
+\newpage
+\listoffigures
+\thispagestyle{plain}
+\newpage
+\listoftables
+\thispagestyle{plain}
+\newpage
+%\input{Front/5_Listofsym}
+%\thispagestyle{empty}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\setcounter{page}{1}
+\pagenumbering{arabic}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{plain}
+\include{Chapters/Ch_1_Introduction} % 1.Introduction
+\include{Chapters/Ch_2_Review_of_Relevant_Literature} % Literature Survey
+\include{Chapters/Ch_3_Problem_Statement_and_Objectives} % Research Problem Statement and Objectives
+\include{Chapters/Ch_4_Methodology}
+\include{Chapters/Ch_5_Results_and_Discussion} %D1
+\include{Chapters/Ch_6_Work_to_be_done} %D2
+%\include{Chapters/CH7_FE_FS} %D3
+%\include{Chapters/CH8_TrAdaBoost} %
+%\include{Chapters/CH9_RTNN} % Conclusion and future work
+%\include{Chapters/Ch10_Conclusions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\addcontentsline{toc}{chapter}{References}
+%\bibliographystyle{apalike}
+
+\bibliography{references}
+\clearpage
+\pagebreak
+\let\svaddcontentsline\addcontentsline
+\renewcommand\addcontentsline[3]{%
+  \ifthenelse{\equal{#1}{lof}}{}%
+  {\ifthenelse{\equal{#1}{lot}}{}{\svaddcontentsline{#1}{#2}{#3}}}}
+\include{Annexures/Design_Data}
+\include{Appendix/Appendix_A}
+%\include{Appendix/AppendixB}
+%\include{Appendix/AppendixC}
+%\include{Appendix/AppendixD}
+
+\end{document}

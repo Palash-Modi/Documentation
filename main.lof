@@ -1,0 +1,12 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Assembled omnidirectional AMR prototype featuring the dual-deck chassis, four-wheel Mecanum drive train, front ultrasonic sensor bracket, upper sensing deck, and integrated electronics bay.}}{12}{}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Real-time MPU-6050 IMU telemetry and terminal teleoperation interface running on the Raspberry Pi~5, displaying 3-axis acceleration, angular velocities, sensor temperature, and active motion command states.}}{15}{}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Trajectory plot and sparse landmark feature distribution generated during the indoor visual navigation run.}}{20}{}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Real-time V-SLAM tracking session displaying dual camera feedback, ultrasonic distance ranging ($162.3\,\text {cm}$), tracked visual landmarks ($259$ points), and pose coordinates.}}{20}{}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces ORB-SLAM2 visualizer session showing dual-camera visual feature processing, tracking across $723$ map points, and real-time operational telemetry overlay.}}{21}{}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Gantt chart illustrating the schedule and task distribution from August 1 to October 15.}}{28}{}%

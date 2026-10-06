@@ -1,0 +1,73 @@
+\begin{thebibliography}{10}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Bailey and Durrant-Whyte(2006{\natexlab{a}})]{bailey2006slam1}
+T.~Bailey and H.~Durrant-Whyte.
+\newblock Simultaneous localization and mapping ({SLAM}): Part {I}.
+\newblock \emph{IEEE Robotics \& Automation Magazine}, 13\penalty0
+  (2):\penalty0 99--110, 2006{\natexlab{a}}.
+\newblock \doi{10.1109/MRA.2006.1638022}.
+
+\bibitem[Bailey and Durrant-Whyte(2006{\natexlab{b}})]{bailey2006slam2}
+T.~Bailey and H.~Durrant-Whyte.
+\newblock Simultaneous localization and mapping ({SLAM}): Part {II}.
+\newblock \emph{IEEE Robotics \& Automation Magazine}, 13\penalty0
+  (3):\penalty0 108--117, 2006{\natexlab{b}}.
+\newblock \doi{10.1109/MRA.2006.1678144}.
+
+\bibitem[Brown et~al.(2020)Brown, Mann, Ryder, Subbiah, Kaplan, Dhariwal,
+  Neelakantan, Shyam, Sastry, Askell, et~al.]{brown2020language}
+T.~B. Brown, B.~Mann, N.~Ryder, M.~Subbiah, J.~Kaplan, P.~Dhariwal,
+  A.~Neelakantan, P.~Shyam, G.~Sastry, A.~Askell, et~al.
+\newblock Language models are few-shot learners.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~33, pages 1877--1901, 2020.
+\newblock URL \url{https://arxiv.org/abs/2005.14165}.
+
+\bibitem[Macenski et~al.(2021)]{macenski2021slam}
+S.~Macenski et~al.
+\newblock {SLAM} toolbox for {ROS} 2.
+\newblock \url{https://github.com/SteveMacenski/slam_toolbox}, 2021.
+
+\bibitem[{Microsoft}(2024)]{microsoft2024powerbi}
+{Microsoft}.
+\newblock Power {BI} streaming datasets documentation.
+\newblock \url{https://learn.microsoft.com/power-bi/}, 2024.
+
+\bibitem[{OASIS Standard}(2019)]{oasis2019mqtt}
+{OASIS Standard}.
+\newblock {MQTT} version 5.0 specification.
+\newblock \url{https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html},
+  2019.
+
+\bibitem[{Open Robotics}(2024)]{openrobotics2024nav2}
+{Open Robotics}.
+\newblock Navigation2 ({Nav2}) documentation.
+\newblock \url{https://navigation.ros.org/}, 2024.
+
+\bibitem[{OpenAI}(2024)]{openai2024gpt}
+{OpenAI}.
+\newblock Openai {API} documentation: Natural language understanding and
+  reasoning.
+\newblock \url{https://platform.openai.com/docs}, 2024.
+
+\bibitem[Siegwart et~al.(2011)Siegwart, Nourbakhsh, and
+  Scaramuzza]{siegwart2011introduction}
+R.~Siegwart, I.~R. Nourbakhsh, and D.~Scaramuzza.
+\newblock \emph{Introduction to Autonomous Mobile Robots}.
+\newblock MIT Press, Cambridge, MA, USA, 2nd edition, 2011.
+\newblock URL
+  \url{https://mitpress.mit.edu/9780262015356/introduction-to-autonomous-mobile-robots/}.
+
+\bibitem[Thrun et~al.(2005)Thrun, Burgard, and Fox]{thrun2005probabilistic}
+S.~Thrun, W.~Burgard, and D.~Fox.
+\newblock \emph{Probabilistic Robotics}.
+\newblock MIT Press, Cambridge, MA, USA, 2005.
+\newblock URL
+  \url{https://mitpress.mit.edu/9780262201629/probabilistic-robotics/}.
+
+\end{thebibliography}
